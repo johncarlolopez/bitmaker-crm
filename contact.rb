@@ -19,8 +19,3 @@ class Contact < ActiveRecord::Base
 end
 # Takes care of making any changes to the structure of tables or columns
 Contact.auto_upgrade!
-
-# On exit, close connections automatically opened by Minirecord
-at_exit do
-  ActiveRecord::Base.connection.close
-end

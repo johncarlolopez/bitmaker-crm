@@ -1,5 +1,5 @@
 require "./contact.rb"
-require "pry"
+
 class CRM
 
   def initialize
@@ -20,9 +20,8 @@ class CRM
     puts '[2] Modify an existing contact'
     puts '[3] Delete a contact'
     puts '[4] Display all the contacts'
-    puts '[5] Search all attributes'
-    puts '[6] Search by attribute'
-    puts '[7] Exit'
+    puts '[5] Search by attribute'
+    puts '[6] Exit'
     print 'Enter a number: '
   end
 
@@ -38,10 +37,8 @@ class CRM
       when 4
         display_all_contacts
       when 5
-        search_all
-      when 6
         search_by_attribute
-      when 7
+      when 6
         system exit
       else
     end
@@ -50,13 +47,13 @@ class CRM
   def add_new_contact
     puts "\n --- Create New Contact ---"
     print "Please enter first name:"
-    first_name = gets.chomp
+    first_name = gets.chomp.downcase
     print "Please enter last name:"
-    last_name = gets.chomp
+    last_name = gets.chomp.downcase
     print "Please enter email (optional):"
-    email = gets.chomp
+    email = gets.chomp.downcase
     print "Please enter notes (optional):"
-    notes = gets.chomp
+    notes = gets.chomp.downcase
     # Contact.create(first_name,last_name,email,notes)
     Contact.create(
       first_name: first_name,
@@ -165,27 +162,32 @@ class CRM
     }
   end
 
-  def search_all
-    puts "\n --- Search Contact ---"
-    print "Please enter search criteria:"
-    result = Contact.find(gets.chomp)
-    puts "Results:"
-    if result.class == Array
-      result.each {|contact|
-        show_contact(contact)
-      }
-    else
-      show_contact(result)
-    end
-  end
-
   def search_by_attribute
     puts "\n --- Search by attribute ---"
     print "Please enter search criteria (first name,last name, email, id): "
-    criteria = gets.chomp
+    attribute = gets.chomp
+    case attribute
+    when "first name"
+      attribute = "first_name = "
+    when "last name"
+      attribute = "last_name = "
+    when "email"
+      attribute = "email = "
+    when "notes"
+      attribute = "notes = "
+    else
+      puts "Invalid attribute"
+      return nil
+    end
     print "Please enter value you want to search (ex. \"john\",\"lopez\", \"john@gmail.com\", 1): "
     val = gets.chomp
-    result = Contact.find_by(criteria,val)
+    # result = my.find_by(attribute,val)
+    # p attribute
+    # p val
+    # result = Contact.find_by(attribute,val)
+    result = Contact.find_by_sql("SELECT * FROM contacts WHERE #{attribute}\"#{val}\"")
+    # p result
+    # puts result
     puts "Results:"
     if result.class == Array
       result.each {|contact|
@@ -197,7 +199,12 @@ class CRM
   end
 
   def show_contact(contact)
-    puts "#{contact.full_name.split.map(&:capitalize).join(' ')} | email:#{contact.email} | notes:#{contact.notes}"
+    if contact == nil
+      return "No contact found"
+    else
+      puts "#{contact.full_name.split.map(&:capitalize).join(' ')} | email:#{contact.email} | notes:#{contact.notes}"
+    end
+
   end
 
 end
@@ -206,24 +213,29 @@ end
 #   first_name: "john",
 #   last_name:  "lopez",
 #   email:      "john@gmail.com",
-#   note:       "made this program"
+#   notes:       "made this program"
 # )
 # Contact.create(
 #   first_name: "charlize",
 #   last_name:  "lopez",
 #   email:      "charlize@gmail.com",
-#   note:       ""
+#   notes:       ""
 # )
 # Contact.create(
 #   first_name: "lorem",
 #   last_name:  "ipsum",
 #   email:      "lee@latin.org",
-#   note:       ""
+#   notes:       ""
 # )
 # Contact.create(
 #   first_name: "bob",
 #   last_name:  "doel",
 #   email:      "bob@usa.gov",
-#   note:       ""
+#   notes:       ""
 # )
 CRM.new
+
+# On exit, close connections automatically opened by Minirecord
+at_exit do
+  ActiveRecord::Base.connection.close
+end
