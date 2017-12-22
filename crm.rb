@@ -26,7 +26,6 @@ class CRM
   end
 
   def call_option(opt = nil)
-    # binding.pry
     case opt
     when 1
       add_new_contact
@@ -55,7 +54,6 @@ class CRM
     email = gets.chomp.downcase
     print "Please enter notes (optional):"
     notes = gets.chomp.downcase
-    # Contact.create(first_name,last_name,email,notes)
     Contact.create(
       first_name: first_name,
       last_name:  last_name,
@@ -67,7 +65,6 @@ class CRM
 
   def modify_existing_contact
     # Need to implement checks for inputs
-    #   currently wrong inputs should not throw exceptions but not do anything
     count = 1
     puts "\n --- Modify Contact ---"
     print "Please enter search criteria (first name,last name, email, id): "
@@ -99,26 +96,60 @@ class CRM
       print "Which contact do you want to delete?(1-#{count - 1}):"
       contact_num_selected = gets.chomp.to_i
       if (contact_num_selected > 0) && (contact_num_selected < count)
-        puts "Do you want to delete contact below?:(y/n)"
+        puts "Do you want to modify contact below?:(y/n)"
         show_contact(result[contact_num_selected - 1])
         ans = gets.chomp
         if ans.downcase == 'y'
-          # binding.pry
-          result[contact_num_selected - 1].delete
-          puts "Contact was deleted"
+          print "What would you like to modify?(first name,last name,email,notes): "
+          attribute = gets.chomp
+          print "What would you like to set it to?: "
+          val = gets.chomp
+          case attribute
+          when "first name"
+            (result[contact_num_selected - 1]).update_attributes(first_name: val)
+          when "last name"
+            (result[contact_num_selected - 1]).update_attributes(last_name: val)
+          when "email"
+            (result[contact_num_selected - 1]).update_attributes(email: val)
+          when "notes"
+            (result[contact_num_selected - 1]).update_attributes(notes: val)
+          else
+            puts "Invalid attribute"
+            return nil
+          end
+          puts "Contact was updated"
+        else
+          puts "Contact was not updated"
         end
       else
-        puts "Contact was not deleted"
+        puts "Contact was not modified"
       end
     elsif result.count == 1
       show_contact(result.first)
-      print "Do you want to delete this contact?(y/n):"
+      print "Do you want to modify this contact?(y/n):"
       ans = gets.chomp.downcase
       if ans == 'y'
-        result.first.delete
-        puts "Contact was deleted"
+        print "What would you like to modify?(first name,last name,email,notes): "
+        attribute = gets.chomp
+        print "What would you like to set it to?: "
+        val = gets.chomp
+
+        case attribute
+        when "first name"
+          result.first.update_attributes(first_name: val)
+        when "last name"
+          result.first.update_attributes(last_name: val)
+        when "email"
+          result.first.update_attributes(email: val)
+        when "notes"
+          result.first.update_attributes(notes: val)
+        else
+          puts "Invalid attribute"
+          return nil
+        end
+        puts "Contact was updated"
       else
-        puts "Contact was not deleted"
+        puts "Contact was not modified"
       end
     else
       puts "No contact found"
@@ -162,7 +193,6 @@ class CRM
         show_contact(result[contact_num_selected - 1])
         ans = gets.chomp
         if ans.downcase == 'y'
-          # binding.pry
           result[contact_num_selected - 1].delete
           puts "Contact was deleted"
         end
@@ -212,7 +242,6 @@ class CRM
     print "Please enter value you want to search (ex. \"john\",\"lopez\", \"john@gmail.com\", 1): "
     val = gets.chomp
     result = Contact.find_by_sql("SELECT * FROM contacts WHERE #{attribute}\"#{val}\"")
-    # p "result is : #{result.first.class}"
     puts "Results:"
     if result.first.class == NilClass
       puts "No contact found"
@@ -222,28 +251,10 @@ class CRM
           puts "arrived at loop"
         }
     end
-    # result.each {|contact|
-    #     show_contact(contact)
-    #     puts "arrived at loop"
-    #   }
-    # if result.class == Array
-    #   result.each {|contact|
-    #     show_contact(contact)
-    #   }
-    # else
-    #   show_contact(result)
-    # end
   end
 
   def show_contact(contact)
-    # puts "test"
-    # p "first item class:#{contact.first.class}"
-    # if contact.first.class == NilClass
-    #   return "No contact found"
-    # else
       puts "#{contact.full_name.split.map(&:capitalize).join(' ')} | email:#{contact.email} | notes:#{contact.notes}"
-    # end
-
   end
 
 end
@@ -273,7 +284,6 @@ end
 #   notes:       ""
 # )
 CRM.new
-
 # On exit, close connections automatically opened by Minirecord
 at_exit do
   ActiveRecord::Base.connection.close
