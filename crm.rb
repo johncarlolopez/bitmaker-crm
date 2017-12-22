@@ -57,7 +57,13 @@ class CRM
     email = gets.chomp
     print "Please enter notes (optional):"
     notes = gets.chomp
-    Contact.create(first_name,last_name,email,notes)
+    # Contact.create(first_name,last_name,email,notes)
+    Contact.create(
+      first_name: first_name,
+      last_name:  last_name,
+      email:      email,
+      notes:       notes
+    )
     puts "\n --- Contact created ---"
   end
 
@@ -196,12 +202,28 @@ class CRM
 
 end
 
-Contact.create("john","lopez","john@gmail.com","made this program")
-Contact.create("dave","smith","dave@gmail.com")
-Contact.create("charlize","lopez","charl@gmail.com")
-Contact.create("bob","doel","bob@usa.gov")
-Contact.create("lorem","ipsum","lee@latin.org")
-
-
-
+# Contact.create(
+#   first_name: "john",
+#   last_name:  "lopez",
+#   email:      "john@gmail.com",
+#   note:       "made this program"
+# )
+# Contact.create(
+#   first_name: "charlize",
+#   last_name:  "lopez",
+#   email:      "charlize@gmail.com",
+#   note:       ""
+# )
+# Contact.create(
+#   first_name: "lorem",
+#   last_name:  "ipsum",
+#   email:      "lee@latin.org",
+#   note:       ""
+# )
+# Contact.create(
+#   first_name: "bob",
+#   last_name:  "doel",
+#   email:      "bob@usa.gov",
+#   note:       ""
+# )
 CRM.new
