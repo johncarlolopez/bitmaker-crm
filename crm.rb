@@ -116,13 +116,28 @@ class CRM
 
   def delete_contact
     count = 1
-    puts "\n --- Delete Contact ---"
-    print "Please enter search criteria:"
-    result = Contact.find(gets.chomp)
+    puts "\n --- Delete by attribute ---"
+    print "Please enter search criteria (first name,last name, email, id): "
+    attribute = gets.chomp
+    case attribute
+    when "first name"
+      attribute = "first_name = "
+    when "last name"
+      attribute = "last_name = "
+    when "email"
+      attribute = "email = "
+    when "id"
+      attribute = "id = "
+    else
+      puts "Invalid attribute"
+      return nil
+    end
+    print "Please enter value you want to search (ex. \"john\",\"lopez\", \"john@gmail.com\", 1): "
+    val = gets.chomp
+    result = Contact.find_by_sql("SELECT * FROM contacts WHERE #{attribute}\"#{val}\"")
     puts "Results:"
-    # If there are mutliple results
-    if result.class == Array
-      # Count how many results there are
+    if result.count > 1
+    # Count how many results there are
       result.each {|contact|
         print "#{count}. "
         count += 1
@@ -142,17 +157,57 @@ class CRM
       else
         puts "Contact was not deleted"
       end
-    else
-      show_contact(result)
+    elsif result.count == 1
+      show_contact(result.first)
       print "Do you want to delete this contact?(y/n):"
       ans = gets.chomp.downcase
       if ans == 'y'
-        result.delete
+        result.first.delete
         puts "Contact was deleted"
       else
         puts "Contact was not deleted"
       end
+    else
+      puts "No contact found"
+      return nil
     end
+    # puts "\n --- Delete Contact ---"
+    # print "Please enter search criteria:"
+    # result = Contact.find(gets.chomp)
+    # puts "Results:"
+    # # If there are mutliple results
+    # if result.class == Array
+    #   # Count how many results there are
+    #   result.each {|contact|
+    #     print "#{count}. "
+    #     count += 1
+    #     show_contact(contact)
+    #   }
+    #   print "Which contact do you want to delete?(1-#{count-1}):"
+    #   contact_num_selected = gets.chomp.to_i
+    #   if (contact_num_selected > 0) && (contact_num_selected < count)
+    #     puts "Do you want to delete contact below?:(y/n)"
+    #     show_contact(result[contact_num_selected-1])
+    #     ans = gets.chomp
+    #     if ans.downcase == 'y'
+    #       # binding.pry
+    #       result[contact_num_selected-1].delete
+    #       puts "Contact was deleted"
+    #     end
+    #   else
+    #     puts "Contact was not deleted"
+    #   end
+    # else
+    #   show_contact(result)
+    #   print "Do you want to delete this contact?(y/n):"
+    #   ans = gets.chomp.downcase
+    #   if ans == 'y'
+    #     result.delete
+    #     puts "Contact was deleted"
+    #   else
+    #     puts "Contact was not deleted"
+    #   end
+    # end
   end
 
   def display_all_contacts
@@ -173,21 +228,15 @@ class CRM
       attribute = "last_name = "
     when "email"
       attribute = "email = "
-    when "notes"
-      attribute = "notes = "
+    when "id"
+      attribute = "id = "
     else
       puts "Invalid attribute"
       return nil
     end
     print "Please enter value you want to search (ex. \"john\",\"lopez\", \"john@gmail.com\", 1): "
     val = gets.chomp
-    # result = my.find_by(attribute,val)
-    # p attribute
-    # p val
-    # result = Contact.find_by(attribute,val)
     result = Contact.find_by_sql("SELECT * FROM contacts WHERE #{attribute}\"#{val}\"")
-    # p result
-    # puts result
     puts "Results:"
     if result.class == Array
       result.each {|contact|
