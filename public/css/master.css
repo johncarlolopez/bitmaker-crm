@@ -43,6 +43,14 @@ nav {
   width: 90%;
 }
 
+main {
+  display: inline-block;
+  text-align: center;
+  background-color: #AAAAAA;
+  margin: 0.3em 5% 0 5%;
+  width: 90%;
+}
+
 a {
   text-decoration: none;
   color: black;

@@ -294,6 +294,11 @@ get '/contacts' do
   @contacts = Contact.all
   erb :contacts
 end
+
+get '/about' do
+  @contacts = Contact.all
+  erb :about
+end
 #
 CRM.new
 # On exit, close connections automatically opened by Minirecord
