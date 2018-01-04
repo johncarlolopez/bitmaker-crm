@@ -1,9 +1,10 @@
-require "./contact.rb"
+require_relative 'contact'
+require 'sinatra'
 
 class CRM
 
   def initialize
-    main_menu
+    #main_menu
   end
 
   def main_menu
@@ -283,8 +284,23 @@ end
 #   email:      "bob@usa.gov",
 #   notes:       ""
 # )
+
+# routes
+get '/' do
+  erb :index
+end
+
+get '/contacts' do
+  @contacts = Contact.all
+  erb :contacts
+end
+#
 CRM.new
 # On exit, close connections automatically opened by Minirecord
-at_exit do
+# at_exit do
+#   ActiveRecord::Base.connection.close
+# end
+# Web version
+after do
   ActiveRecord::Base.connection.close
 end

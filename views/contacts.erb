@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Contacts</title>
+    <link rel="stylesheet" href="/css/master.css">
+  </head>
+  <body>
+    <h1>Contacts</h1>
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+      </ul>
+      <ul>
+        <li><a href="/contacts">Contacts</a></li>
+      </ul>
+    </nav>
+    <!-- <ul>
+      <% @contacts.each {|contact| -%><li>
+<%= "#{contact.full_name.split.map(&:capitalize).join(' ')} | email:#{contact.email} | notes:#{contact.notes}" %>
+        <% } %></li>
+    </ul> -->
+    <table>
+      <tr>
+        <th>Name</td>
+        <th>Email</td>
+        <th>Notes</td>
+      </tr>
+      <% @contacts.each {|contact| -%><tr>
+<%= "<td>#{contact.full_name.split.map(&:capitalize).join(' ')}</td>
+<td>#{contact.email}</td>
+<td>#{contact.notes}</td>" %>
+        <% } %></tr>
+    </table>
+  </body>
+</html>
