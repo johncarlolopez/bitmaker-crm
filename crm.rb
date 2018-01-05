@@ -260,6 +260,8 @@ class CRM
 
 end
 
+# Contact.delete_all
+#
 # Contact.create(
 #   first_name: "john",
 #   last_name:  "lopez",
@@ -267,22 +269,28 @@ end
 #   notes:       "made this program"
 # )
 # Contact.create(
-#   first_name: "charlize",
-#   last_name:  "lopez",
-#   email:      "charlize@gmail.com",
-#   notes:       ""
+#   first_name: "george",
+#   last_name:  "washington",
+#   email:      "georgewashington@gmail.com",
+#   notes:       "The first president of the United states"
 # )
 # Contact.create(
-#   first_name: "lorem",
-#   last_name:  "ipsum",
-#   email:      "lee@latin.org",
-#   notes:       ""
+#   first_name: "margaret",
+#   last_name:  "thatcher",
+#   email:      "Margaret@pm.co.uk",
+#   notes:      "British Prime Minister 1979 – 1990"
+# )
+# Contact.create(
+#   first_name: "Plato",
+#   last_name:  "",
+#   email:      "plato@thinkers.org",
+#   notes:      "Greek philosopher in classical Greece"
 # )
 # Contact.create(
 #   first_name: "bob",
 #   last_name:  "doel",
 #   email:      "bob@usa.gov",
-#   notes:       ""
+#   notes:      "lawyer"
 # )
 
 # routes
@@ -294,6 +302,15 @@ end
 
 get '/contacts' do
   redirect to '/'
+end
+
+get '/contacts/:id' do
+  @contact = Contact.find_by(id: params[:id].to_i)
+  if @contact
+    erb :show_contact
+  else
+    raise Sinatra::NotFound
+  end
 end
 
 get '/about' do

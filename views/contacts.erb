@@ -10,7 +10,7 @@
     <div class="centered">
       <% @contacts.each {|contact| -%>
         <div class="contact">
-        <p><%= "#{contact.full_name.split.map(&:capitalize).join(' ')} (#{contact.email})" %></p>
+        <p><a href="<%= "/contacts/#{contact.id}" %>"><%= "#{contact.full_name.split.map(&:capitalize).join(' ')} (#{contact.email})" %></a></p>
         <p><a href="#">Edit</a> | <a href="#">Delete</a></p>
         </div>
         <% } %>

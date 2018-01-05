@@ -1,0 +1,8 @@
+<div class="">
+  <!-- Parent div needed to use :only-child css -->
+  <div class="centered contact">
+    <p><%= "Name: #{@contact.full_name.split.map(&:capitalize).join(' ')}" %></p>
+    <p><%= "Email: #{@contact.email}" %></p>
+    <p><%= "Notes: #{@contact.notes}" %></p>
+  </div>
+</div>

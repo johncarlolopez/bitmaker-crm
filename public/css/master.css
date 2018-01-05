@@ -78,7 +78,6 @@ li:nth-child(n+1) {
   overflow: hidden;
   font-size: 1.5em;
   padding: 0.25em;
-  margin-bottom: 0.25em;
   margin-top: 0.25em;
 }
 .contact {
@@ -86,6 +85,9 @@ li:nth-child(n+1) {
   font-size: 1.5em;
   margin-bottom: 0.25em;
   padding: 1em;
+}
+.contact:first-child {
+  margin-top: 0.25em;
 }
 .contact p:last-child {
   font-size: 0.8em;
