@@ -287,12 +287,13 @@ end
 
 # routes
 get '/' do
-  erb :index
+  @contacts = Contact.all
+  @num_contacts = @contacts.count
+  erb :contacts
 end
 
 get '/contacts' do
-  @contacts = Contact.all
-  erb :contacts
+  redirect to '/'
 end
 
 get '/about' do

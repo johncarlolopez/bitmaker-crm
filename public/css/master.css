@@ -8,24 +8,20 @@ html {
 *::before,
 *::after {
   box-sizing: inherit;
+  margin: 0;
 }
 
 body {
   margin: 0;
-  background-color: #121212;
+  background-color: white;
 }
 
 h1 {
-  display: inline-block;
   text-align: center;
-  background-color: #AAAAAA;
-  margin: 0.5em 5% 0 5%;
-  width: 90%;
+  background-color: #333333;
   padding: 0.25em;
-}
-table {
-  margin: 0.25em 5% 0 5%;
-  width: 90%;
+  color: white;
+  font-weight: bold;
 }
 table, th, td {
   border: 1px solid black;
@@ -36,24 +32,19 @@ table, th, td {
 }
 
 nav {
-  display: inline-block;
   text-align: center;
-  background-color: #AAAAAA;
-  margin: 0.5em 5% 0 5%;
-  width: 90%;
 }
 
-main {
+.about {
   display: inline-block;
   text-align: center;
-  background-color: #AAAAAA;
   margin: 0.3em 5% 0 5%;
   width: 90%;
 }
 
 a {
   text-decoration: none;
-  color: black;
+  color: inherit;
 }
 
 ul {
@@ -62,9 +53,50 @@ ul {
 }
 
 li {
-  float: left;
   list-style: none;
-  display: inline-block;
-  padding: 0.5em 1em;
-  font-size: 1em;
+  display: block;
+  background-color: #D3D3D3;
+  padding: 0.25em;
+  font-size: 1.25em;
+  color:white
+}
+li:nth-child(n+1) {
+  margin: 0.15em 0 0;
+}
+.centered {
+  margin-left: 5%;
+  margin-right: 5%;
+  width: 90%;
+}
+.underlined {
+  text-decoration: underline;
+  text-decoration-color: #5DBCD2;
+}
+.contactnumber {
+  background-color: #FB7E78;
+  color: black;
+  overflow: hidden;
+  font-size: 1.5em;
+  padding: 0.25em;
+  margin-bottom: 0.25em;
+  margin-top: 0.25em;
+}
+.contact {
+  background-color: #5DBCD2;
+  font-size: 1.5em;
+  margin-bottom: 0.25em;
+  padding: 1em;
+}
+.contact p:last-child {
+  font-size: 0.8em;
+}
+.contact p:last-child a {
+  color: blue;
+}
+footer {
+  text-align: center;
+  background-color: black;
+  color: white;
+  font-size: 0.75em;
+  padding: 0.25em;
 }
