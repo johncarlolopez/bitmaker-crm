@@ -308,9 +308,19 @@ get '/contacts/:id' do
   @contact = Contact.find_by(id: params[:id].to_i)
   if @contact
     erb :show_contact
+  elsif params[:id].downcase == 'new'
+    erb :new
   else
     raise Sinatra::NotFound
   end
+end
+
+# get '/contacts/new' do
+#   erb :new
+# end
+
+get '/contacts/new' do
+  "Hello World"
 end
 
 get '/about' do
