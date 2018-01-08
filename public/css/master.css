@@ -114,3 +114,16 @@ li:nth-child(n+1) {
   /*display: inline-block;
   margin: 0 20%;*/
 }
+
+.inlinebutton {
+  display: inline-block;
+}
+
+.colouredbutton {
+  background-color: #5DBCD2;
+  color: black;
+  font-weight: bold;
+  border: none;
+  font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.7em;
+}

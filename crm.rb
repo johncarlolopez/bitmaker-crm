@@ -305,7 +305,7 @@ get '/contacts' do
 end
 
 get '/contacts/new' do
-  "Hello World"
+  erb :new
 end
 
 get '/about' do
@@ -353,6 +353,16 @@ put '/contacts/:id' do
     email:      params[:email].downcase,
     notes:       params[:notes]
     )
+    redirect to('/contacts')
+  else
+    raise Sinatra::NotFound
+  end
+end
+
+delete '/contacts/:id' do
+  @contact = Contact.find(params[:id].to_i)
+  if @contact
+    @contact.delete
     redirect to('/contacts')
   else
     raise Sinatra::NotFound

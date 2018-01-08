@@ -6,7 +6,12 @@
       <% @contacts.each {|contact| -%>
         <div class="contact">
         <p><a href="<%= "/contacts/#{contact.id}" %>"><%= "#{contact.full_name.split.map(&:capitalize).join(' ')} (#{contact.email})" %></a></p>
-        <p><a href="/contacts/<%= contact.id %>/edit">Edit</a> | <a href="#">Delete</a></p>
+        <form class="inlinebutton" action="/contacts/<%= contact.id %>/edit" method="get">
+            <input class='colouredbutton' type='submit' value='Edit'>
+        </form> | <form class="inlinebutton" action="/contacts/<%= contact.id %>" method="post">
+            <input type='hidden' name='_method' value='delete'>
+            <input class='colouredbutton' type='submit' value='Delete'>
+        </form>
         </div>
         <% } %>
     </div>
