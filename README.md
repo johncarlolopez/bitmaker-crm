@@ -102,7 +102,7 @@ ___
 2. Add a new route for the URL localhost:4567/contacts/new that renders that new view.
 3. Test your work by adding a heading to your new view that says "Add a new contact" or something similar, then go to the new URL we just set up (don't forget to restart your server first). If you see that heading you just added, you've succeeded! That calls for a commit.
 
-###Making our first form
+### Making our first form
 ___
 Now we're ready to add a form to our new view.
 ```
