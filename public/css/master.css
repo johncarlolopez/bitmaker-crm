@@ -23,23 +23,27 @@ h1 {
   color: white;
   font-weight: bold;
 }
+
 table, th, td {
-  border: 1px solid black;
   border-collapse: collapse;
-  background-color: #AAAAAA;
-  padding: 1em;
+  padding: 0.5em;
   text-align: left;
+}
+
+table {
+  margin-top: 1em;
 }
 
 nav {
   text-align: center;
 }
 
-.about {
-  display: inline-block;
+footer {
   text-align: center;
-  margin: 0.3em 5% 0 5%;
-  width: 90%;
+  background-color: black;
+  color: white;
+  font-size: 0.75em;
+  padding: 0.25em;
 }
 
 a {
@@ -58,11 +62,20 @@ li {
   background-color: #D3D3D3;
   padding: 0.25em;
   font-size: 1.25em;
-  color:white
+  color: white;
 }
+
 li:nth-child(n+1) {
   margin: 0.15em 0 0;
 }
+
+.about {
+  display: inline-block;
+  text-align: center;
+  margin: 0.3em 5% 0 5%;
+  width: 90%;
+}
+
 .centered {
   margin-left: 5%;
   margin-right: 5%;
@@ -95,10 +108,9 @@ li:nth-child(n+1) {
 .contact p:last-child a {
   color: blue;
 }
-footer {
+.inputitem {
   text-align: center;
-  background-color: black;
-  color: white;
-  font-size: 0.75em;
-  padding: 0.25em;
+  padding: 1em;
+  /*display: inline-block;
+  margin: 0 20%;*/
 }

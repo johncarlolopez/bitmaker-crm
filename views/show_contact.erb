@@ -4,5 +4,6 @@
     <p><%= "Name: #{@contact.full_name.split.map(&:capitalize).join(' ')}" %></p>
     <p><%= "Email: #{@contact.email}" %></p>
     <p><%= "Notes: #{@contact.notes}" %></p>
+    <p><a href="/contacts/<%= @contact.id %>/edit">Edit</a> | <a href="#">Delete</a></p>
   </div>
 </div>

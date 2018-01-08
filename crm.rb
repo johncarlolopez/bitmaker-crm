@@ -304,6 +304,25 @@ get '/contacts' do
   redirect to '/'
 end
 
+get '/contacts/new' do
+  "Hello World"
+end
+
+get '/about' do
+  @contacts = Contact.all
+  erb :about
+end
+
+post '/contacts' do
+  Contact.create(
+    first_name: params[:first_name],
+    last_name:  params[:last_name],
+    email:      params[:email],
+    notes:       params[:notes]
+  )
+  redirect to '/contacts'
+end
+
 get '/contacts/:id' do
   @contact = Contact.find_by(id: params[:id].to_i)
   if @contact
@@ -315,17 +334,29 @@ get '/contacts/:id' do
   end
 end
 
-# get '/contacts/new' do
-#   erb :new
-# end
-
-get '/contacts/new' do
-  "Hello World"
+get '/contacts/:id/edit' do
+  @contact = Contact.find_by(id: params[:id].to_i)
+  if @contact
+    erb :edit_contact
+  else
+    raise Sinatra::NotFound
+  end
 end
 
-get '/about' do
-  @contacts = Contact.all
-  erb :about
+put '/contacts/:id' do
+  puts "init put"
+  @contact = Contact.find_by(id: params[:id].to_i)
+  if @contact
+    @contact.update(
+    first_name: params[:first_name].downcase,
+    last_name:  params[:last_name].downcase,
+    email:      params[:email].downcase,
+    notes:       params[:notes]
+    )
+    redirect to('/contacts')
+  else
+    raise Sinatra::NotFound
+  end
 end
 #
 CRM.new
