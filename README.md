@@ -327,3 +327,14 @@ ___
 # Done
 ___
 You made your first web app complete with all four CRUD actions! Congratulations!
+
+# RESULTS
+___
+
+![main](https://github.com/johncarlolopez/bitmaker-crm/blob/master/main.png)
+
+![contact](https://github.com/johncarlolopez/bitmaker-crm/blob/master/contact.png)
+
+![new](https://github.com/johncarlolopez/bitmaker-crm/blob/master/new.png)
+
+![edit](https://github.com/johncarlolopez/bitmaker-crm/blob/master/edit.png)
